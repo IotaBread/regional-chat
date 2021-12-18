@@ -17,7 +17,7 @@ public class CommandManagerMixin {
     @Final
     private CommandDispatcher<ServerCommandSource> dispatcher;
 
-    @Inject(at = @At(value = "INVOKE", target = "Lcom/mojang/brigadier/CommandDispatcher;findAmbiguities(Lcom/mojang/brigadier/AmbiguityConsumer;)V"), method = "<init>")
+    @Inject(at = @At(value = "INVOKE", target = "Lcom/mojang/brigadier/CommandDispatcher;findAmbiguities(Lcom/mojang/brigadier/AmbiguityConsumer;)V", remap = false), method = "<init>")
     private void registerCommand(CommandManager.RegistrationEnvironment registrationEnvironment, CallbackInfo ci) {
         ShoutCommand.register(this.dispatcher);
     }
