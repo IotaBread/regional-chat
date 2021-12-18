@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.bymartrixx.regionalchat.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "CommandManagerMixin",
+    "ServerPlayNetworkHandlerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

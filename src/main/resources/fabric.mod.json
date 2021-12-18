@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "regionalchat",
+  "version": "${version}",
+
+  "name": "Regional Chat",
+  "description": "A mod that limits the range a player can talk and be heard via text chat",
+  "authors": [
+    "ByMartrixx"
+  ],
+  "contact": {
+    "sources": "https://github.com/ByMartrixx/regional-chat"
+  },
+
+  "license": "MIT",
+  "icon": "assets/regionalchat/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "me.bymartrixx.regionalchat.RegionalChat"
+    ]
+  },
+  "mixins": [
+    "regionalchat.mixins.json"
+  ]
+}
