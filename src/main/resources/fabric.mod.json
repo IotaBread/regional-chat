@@ -23,5 +23,10 @@
   },
   "mixins": [
     "regionalchat.mixins.json"
-  ]
+  ],
+
+  "depends": {
+    "minecraft": ">=1.17",
+    "java": ">=16"
+  }
 }
