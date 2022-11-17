@@ -3,29 +3,23 @@ package me.bymartrixx.regionalchat.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import me.bymartrixx.regionalchat.RegionalChat;
-import net.minecraft.command.argument.MessageArgumentType;
-import net.minecraft.entity.Entity;
-import net.minecraft.network.MessageType;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.arguments.MessageArgument;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Util;
 
-import java.util.UUID;
-
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 public class ShoutCommand {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        LiteralCommandNode<ServerCommandSource> node = dispatcher.register(
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
+        LiteralCommandNode<CommandSourceStack> node = dispatcher.register(
                 literal("shout")
-                        .requires(source -> source.hasPermissionLevel(RegionalChat.CONFIG.opRequiredPermissionLevel))
-                        .then(argument("message", MessageArgumentType.message())
+                        .requires(source -> source.hasPermission(RegionalChat.CONFIG.opRequiredPermissionLevel))
+                        .then(argument("message", MessageArgument.message())
                                 .executes(context -> execute(
                                         context.getSource(),
-                                        MessageArgumentType.getMessage(context, "message"))
+                                        MessageArgument.getChatMessage(context, "message"))
                                 )
                         )
         );
@@ -34,14 +28,11 @@ public class ShoutCommand {
         dispatcher.register(literal("s").redirect(node));
     }
 
-    private static int execute(ServerCommandSource source, Text message) {
-        Entity entity = source.getEntity();
-        UUID sender = entity == null ? Util.NIL_UUID : entity.getUuid();
+    private static int execute(CommandSourceStack source, MessageArgument.ChatMessage message) {
         MinecraftServer server = source.getServer();
-        Text displayName = entity != null ? entity.getDisplayName() : null;
-        Text text = new TranslatableText("chat.type.text", displayName, message);
 
-        server.getPlayerManager().broadcastChatMessage(text, MessageType.CHAT, sender);
+        message.resolve(source, chatMessage ->
+                server.getPlayerList().broadcastChatMessage(chatMessage, source, ChatType.bind(ChatType.CHAT, source)));
 
         return 1;
     }

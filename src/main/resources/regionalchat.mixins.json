@@ -4,8 +4,10 @@
   "package": "me.bymartrixx.regionalchat.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "CommandManagerMixin",
-    "ServerPlayNetworkHandlerMixin"
+    "CommandsMixin",
+    "PlayerChatMessageMixin",
+    "PlayerListMixin",
+    "ServerGamePacketListenerImplMixin"
   ],
   "injectors": {
     "defaultRequire": 1

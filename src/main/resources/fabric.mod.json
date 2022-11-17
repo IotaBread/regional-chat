@@ -26,7 +26,7 @@
   ],
 
   "depends": {
-    "minecraft": ">=1.17",
-    "java": ">=16"
+    "minecraft": ">=1.19.2",
+    "java": ">=17"
   }
 }
