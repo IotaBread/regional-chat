@@ -15,7 +15,7 @@ public class ShoutCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         LiteralCommandNode<CommandSourceStack> node = dispatcher.register(
                 literal("shout")
-                        .requires(source -> source.hasPermission(RegionalChat.CONFIG.opRequiredPermissionLevel))
+                        .requires(source -> source.hasPermission(RegionalChat.CONFIG.getOpRequiredPermissionLevel()))
                         .then(argument("message", MessageArgument.message())
                                 .executes(context -> execute(
                                         context.getSource(),

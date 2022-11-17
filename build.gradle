@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.0-SNAPSHOT'
+	id 'org.quiltmc.loom' version '1.0.+'
 	id 'maven-publish'
 	id 'io.github.juuxel.loom-quiltflower' version '1.7.4'
 }
@@ -27,7 +27,8 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	// mappings "org.quiltmc:quilt-mappings:${minecraft_version}+build.${project.quilt_mappings_build}:intermediary-v2"
 	mappings loom.officialMojangMappings()
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	modImplementation "org.quiltmc:quilt-loader:${project.loader_version}"
+	compileClasspath "org.quiltmc:quilt-config:${project.quilt_config_version}"
 
 	// Fabric API.
 	// modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
