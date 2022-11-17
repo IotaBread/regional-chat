@@ -7,9 +7,37 @@ Join [my Discord server](https://discord.gg/PuqmUMaJWk) for support and updates
 - `/shout <message>` - Sends a message to all players in the server. Op required
 
 ### Configuration
-The file is located at `config/regional_chat.json`
+Since 1.1.0, you can use TOML or JSON5 for your config file! (**[Quilt Loader](https://quiltmc.org/) Required**).
+Files for older versions of the mod (1.0.x) are automatically converted to TOML, but you may keep your file in json by moving it to the path below.
+
+The file is located at `config/regional_chat/regional_chat.toml`/`regional_chat.json5` in Quilt, or `config/regional_chat.json` in Fabric
 
 #### Default
+TOML:
+```toml
+# The range in blocks a player can talk and be heard
+# range[0, 32767]
+# default: 100
+range = 100
+# Whether to notify players about the distance a message was sent from
+# default: true
+notifyDistance = true
+# The prefix to use when notifying players about the distance a message was sent from
+# default: [From %.0f blocks away] 
+distancePrefix = "[From %.0f blocks away] "
+# Whether to allow operators to bypass the range limit
+# default: true
+opBypass = true
+# The permission level required to bypass the range limit
+# range[0, 4]
+# default: 3
+opRequiredPermissionLevel = 3
+# Whether operators should have an unlimited hearing range
+# default: false
+opUnlimitedRange = false
+```
+
+JSON:
 ```json
 {
   "range": 100,
@@ -20,13 +48,3 @@ The file is located at `config/regional_chat.json`
   "op_unlimited_range": false
 }
 ```
-
-#### Properties
-| Property          | Type     | Description |
-| ----------------- | -------- | ----------- |
-| `range`           | number   | The range in blocks a player can talk and be heard. |
-| `notify_distance` | boolean  | Whether to notify players about the distance a message was sent from. |
-| `distance_prefix` | string   | The prefix to use when notifying players about the distance a message was sent from. |
-| `op_bypass`       | boolean  | Whether to allow operators to bypass the range limit. |
-| `op_required_permission_level` | number | The permission level required to bypass the range limit. |
-| `op_unlimited_range` | boolean | Whether operators should have an unlimited hearing range. |
