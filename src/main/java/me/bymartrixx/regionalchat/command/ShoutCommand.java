@@ -6,6 +6,7 @@ import me.bymartrixx.regionalchat.RegionalChat;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.MessageArgument;
 import net.minecraft.network.chat.ChatType;
+import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.server.MinecraftServer;
 
 import static net.minecraft.commands.Commands.argument;
@@ -17,10 +18,12 @@ public class ShoutCommand {
                 literal("shout")
                         .requires(source -> source.hasPermission(RegionalChat.CONFIG.getOpRequiredPermissionLevel()))
                         .then(argument("message", MessageArgument.message())
-                                .executes(context -> execute(
-                                        context.getSource(),
-                                        MessageArgument.getChatMessage(context, "message"))
-                                )
+                                .executes(context -> {
+                                    MessageArgument.resolveChatMessage(context, "message", message -> {
+                                        execute(context.getSource(), message);
+                                    });
+                                    return 1;
+                                })
                         )
         );
 
@@ -28,12 +31,9 @@ public class ShoutCommand {
         dispatcher.register(literal("s").redirect(node));
     }
 
-    private static int execute(CommandSourceStack source, MessageArgument.ChatMessage message) {
+    private static void execute(CommandSourceStack source, PlayerChatMessage message) {
         MinecraftServer server = source.getServer();
 
-        message.resolve(source, chatMessage ->
-                server.getPlayerList().broadcastChatMessage(chatMessage, source, ChatType.bind(ChatType.CHAT, source)));
-
-        return 1;
+        server.getPlayerList().broadcastChatMessage(message, source, ChatType.bind(ChatType.CHAT, source));
     }
 }

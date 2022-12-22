@@ -1,7 +1,7 @@
 plugins {
-	id 'org.quiltmc.loom' version '1.0.+'
+	alias libs.plugins.quilt.loom
+	alias libs.plugins.loom.quiltflower
 	id 'maven-publish'
-	id 'io.github.juuxel.loom-quiltflower' version '1.7.4'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -24,14 +24,10 @@ repositories {
 
 dependencies {
 	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	// mappings "org.quiltmc:quilt-mappings:${minecraft_version}+build.${project.quilt_mappings_build}:intermediary-v2"
+	minecraft libs.minecraft
+	// mappings variantOf(libs.quilt.mappings) { classifier("intermediary-v2") }
 	mappings loom.officialMojangMappings()
-	modImplementation "org.quiltmc:quilt-loader:${project.loader_version}"
-	compileClasspath "org.quiltmc:quilt-config:${project.quilt_config_version}"
-
-	// Fabric API.
-	// modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation libs.quilt.loader
 }
 
 processResources {
@@ -62,7 +58,6 @@ jar {
 
 quiltflower {
 	addToRuntimeClasspath.set(true)
-	quiltflowerVersion.set('1.9.0')
 }
 
 // configure the maven publication

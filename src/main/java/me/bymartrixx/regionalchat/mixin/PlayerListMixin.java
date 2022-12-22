@@ -1,7 +1,6 @@
 package me.bymartrixx.regionalchat.mixin;
 
 import me.bymartrixx.regionalchat.access.PlayerChatMessageAccess;
-import net.minecraft.network.chat.ChatSender;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,12 +20,12 @@ public class PlayerListMixin {
     @Unique
     private PlayerChatMessage regional_chat$message;
 
-    @Inject(at = @At(value = "HEAD"), method = "broadcastChatMessage(Lnet/minecraft/network/chat/PlayerChatMessage;Ljava/util/function/Predicate;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/network/chat/ChatSender;Lnet/minecraft/network/chat/ChatType$Bound;)V")
-    private void beforeBroadcast(PlayerChatMessage playerChatMessage, Predicate<ServerPlayer> predicate, ServerPlayer serverPlayer, ChatSender chatSender, ChatType.Bound bound, CallbackInfo ci) {
+    @Inject(at = @At(value = "HEAD"), method = "broadcastChatMessage(Lnet/minecraft/network/chat/PlayerChatMessage;Ljava/util/function/Predicate;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/network/chat/ChatType$Bound;)V")
+    private void beforeBroadcast(PlayerChatMessage playerChatMessage, Predicate<ServerPlayer> predicate, ServerPlayer serverPlayer, ChatType.Bound bound, CallbackInfo ci) {
         regional_chat$message = playerChatMessage;
     }
 
-    @Redirect(at = @At(value = "FIELD", target = "Lnet/minecraft/server/players/PlayerList;players:Ljava/util/List;"), method = "broadcastChatMessage(Lnet/minecraft/network/chat/PlayerChatMessage;Ljava/util/function/Predicate;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/network/chat/ChatSender;Lnet/minecraft/network/chat/ChatType$Bound;)V")
+    @Redirect(at = @At(value = "FIELD", target = "Lnet/minecraft/server/players/PlayerList;players:Ljava/util/List;"), method = "broadcastChatMessage(Lnet/minecraft/network/chat/PlayerChatMessage;Ljava/util/function/Predicate;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/network/chat/ChatType$Bound;)V")
     private List<ServerPlayer> getPlayers(PlayerList instance) {
         PlayerChatMessageAccess message = PlayerChatMessageAccess.cast(regional_chat$message);
         if (message.regional_chat$hasPlayerFilter()) {

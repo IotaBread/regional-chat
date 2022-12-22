@@ -24,8 +24,7 @@ public class ServerGamePacketListenerImplMixin {
     @Inject(at = @At(value = "INVOKE",
             target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;broadcastChatMessage(Lnet/minecraft/network/chat/PlayerChatMessage;)V"
     ), method = "method_45064", locals = LocalCapture.CAPTURE_FAILHARD) // lambda$handleChat$0
-    private void broadcastMessage(CompletableFuture<FilteredText> completableFuture, CompletableFuture<PlayerChatMessage> completableFuture2, Void void_, CallbackInfo ci,
-                                  FilterMask mask, PlayerChatMessage message) {
+    private void broadcastMessage(PlayerChatMessage playerChatMessage, CompletableFuture<?> completableFuture, CompletableFuture<?> completableFuture2, Void void_, CallbackInfo ci, PlayerChatMessage message) {
         PlayerChatMessageAccess.cast(message).regional_chat$setPlayerFilter(RegionalChat.getPlayerFilter(this.player));
     }
 }
