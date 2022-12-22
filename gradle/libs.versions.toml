@@ -11,3 +11,5 @@ quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loade
 [plugins]
 quilt_loom = { id = "org.quiltmc.loom", version = "1.0.+" }
 loom_quiltflower = { id = "io.github.juuxel.loom-quiltflower", version = "1.8.+" }
+minotaur = { id = "com.modrinth.minotaur", version = "2.5.0" }
+cursegradle = { id = "com.matthewprenger.cursegradle", version = "1.4.0" }
