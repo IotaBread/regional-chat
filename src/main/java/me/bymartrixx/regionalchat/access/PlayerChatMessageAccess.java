@@ -12,6 +12,10 @@ public interface PlayerChatMessageAccess {
 
     void regional_chat$setPlayerFilter(Predicate<ServerPlayer> playerFilter);
 
+    ServerPlayer regional_chat$getSender();
+
+    void regional_chat$setSender(ServerPlayer player);
+
     static PlayerChatMessageAccess cast(PlayerChatMessage message) {
         return (PlayerChatMessageAccess) (Object) message;
     }

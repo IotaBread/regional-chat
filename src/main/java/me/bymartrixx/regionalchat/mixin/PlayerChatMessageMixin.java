@@ -12,6 +12,8 @@ import java.util.function.Predicate;
 public class PlayerChatMessageMixin implements PlayerChatMessageAccess {
     @Unique
     private Predicate<ServerPlayer> regional_chat$playerFilter;
+    @Unique
+    private ServerPlayer regional_chat$sender;
 
     @Override
     public boolean regional_chat$hasPlayerFilter() {
@@ -26,5 +28,15 @@ public class PlayerChatMessageMixin implements PlayerChatMessageAccess {
     @Override
     public void regional_chat$setPlayerFilter(Predicate<ServerPlayer> playerFilter) {
         regional_chat$playerFilter = playerFilter;
+    }
+
+    @Override
+    public ServerPlayer regional_chat$getSender() {
+        return regional_chat$sender;
+    }
+
+    @Override
+    public void regional_chat$setSender(ServerPlayer player) {
+        regional_chat$sender = player;
     }
 }
