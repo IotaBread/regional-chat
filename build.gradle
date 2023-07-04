@@ -66,10 +66,10 @@ modrinth {
 	token = project.hasProperty('modrinth_token') ? project.property('modrinth_token') : System.getenv('MODRINTH_TOKEN')
 	projectId = 'B6Z2SJET'
 	versionNumber = project.version
-	versionName = "Regional Chat ${project.version} for Minecraft 1.19.3"
+	versionName = "Regional Chat ${project.version} for Minecraft 1.20.1"
 	uploadFile = remapJar
 	changelog = "A changelog can be found at https://github.com/ByMartrixx/regional-chat/releases/tag/${version}"
-	gameVersions = ['1.19.3']
+	gameVersions = ['1.20.1']
 	loaders = ['fabric', 'quilt']
 }
 
@@ -81,11 +81,11 @@ curseforge {
 		id = '558251'
 		changelog = "A changelog can be found at https://github.com/ByMartrixx/regional-chat/releases/tag/${version}"
 		releaseType = 'release'
-		addGameVersion '1.19.3'
+		addGameVersion '1.20.1'
 		addGameVersion 'Fabric'
 		addGameVersion 'Quilt'
 		mainArtifact(remapJar) {
-			displayName = "Regional Chat ${version} for Minecraft 1.19.3"
+			displayName = "Regional Chat ${version} for Minecraft 1.20.1"
 		}
 		afterEvaluate {
 			uploadTask.dependsOn('remapJar')
@@ -108,12 +108,6 @@ publishing {
 
 	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
 	repositories {
-		maven {
-			url 's3://maven.bymartrixx.me'
-			credentials(AwsCredentials) {
-				accessKey = System.env.AWS_ACCESS_KEY ?: findProperty('mavenAccessKey')
-				secretKey = System.env.AWS_SECRET_KEY ?: findProperty('mavenSecretKey')
-			}
-		}
+		mavenLocal()
 	}
 }

@@ -32,7 +32,7 @@ public class RegionalChat implements ModInitializer {
                 return true;
             }
 
-            if (player.getLevel() != senderPlayer.getLevel()) {
+            if (player.level() != senderPlayer.level()) {
                 return false;
             }
 
