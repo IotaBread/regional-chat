@@ -1,6 +1,5 @@
 plugins {
 	alias libs.plugins.quilt.loom
-	alias libs.plugins.loom.quiltflower
 	alias libs.plugins.minotaur
 	alias libs.plugins.cursegradle
 	id 'maven-publish'
@@ -54,22 +53,18 @@ java {
 
 jar {
 	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
+		rename { "${it}_${project.archivesBaseName}" }
 	}
-}
-
-quiltflower {
-	addToRuntimeClasspath.set(true)
 }
 
 modrinth {
 	token = project.hasProperty('modrinth_token') ? project.property('modrinth_token') : System.getenv('MODRINTH_TOKEN')
 	projectId = 'B6Z2SJET'
 	versionNumber = project.version
-	versionName = "Regional Chat ${project.version} for Minecraft 1.20.1"
+	versionName = "Regional Chat ${project.version} for Minecraft 1.20.2"
 	uploadFile = remapJar
-	changelog = "A changelog can be found at https://github.com/ByMartrixx/regional-chat/releases/tag/${version}"
-	gameVersions = ['1.20.1']
+	changelog = "A changelog can be found at https://github.com/IotaBread/regional-chat/releases/tag/${version}"
+	gameVersions = ['1.20.2']
 	loaders = ['fabric', 'quilt']
 }
 
@@ -79,13 +74,13 @@ curseforge {
 	}
 	project {
 		id = '558251'
-		changelog = "A changelog can be found at https://github.com/ByMartrixx/regional-chat/releases/tag/${version}"
+		changelog = "A changelog can be found at https://github.com/IotaBread/regional-chat/releases/tag/${version}"
 		releaseType = 'release'
-		addGameVersion '1.20.1'
+		addGameVersion '1.20.2'
 		addGameVersion 'Fabric'
 		addGameVersion 'Quilt'
 		mainArtifact(remapJar) {
-			displayName = "Regional Chat ${version} for Minecraft 1.20.1"
+			displayName = "Regional Chat ${version} for Minecraft 1.20.2"
 		}
 		afterEvaluate {
 			uploadTask.dependsOn('remapJar')

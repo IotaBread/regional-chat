@@ -1,7 +1,7 @@
 [versions]
-minecraft = "1.20.1"
-quilt_mappings = "1.20.1+build.11"
-quilt_loader = "0.19.2"
+minecraft = "1.20.2"
+quilt_mappings = "1.20.2+build.3"
+quilt_loader = "0.19.5"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -9,7 +9,6 @@ quilt_mappings = { module = "org.quiltmc:quilt-mappings", version.ref = "quilt_m
 quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loader" }
 
 [plugins]
-quilt_loom = { id = "org.quiltmc.loom", version = "1.1.+" }
-loom_quiltflower = { id = "io.github.juuxel.loom-quiltflower", version = "1.8.+" }
+quilt_loom = { id = "org.quiltmc.loom", version = "1.4.+" }
 minotaur = { id = "com.modrinth.minotaur", version = "2.5.0" }
 cursegradle = { id = "com.matthewprenger.cursegradle", version = "1.4.0" }

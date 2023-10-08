@@ -31,7 +31,8 @@ public class RegionalChatConfigImpl implements RegionalChatConfig {
         builder.field(NOTIFY_DISTANCE = TrackedValue.create(NOTIFY_DISTANCE_DEFAULT, "notifyDistance", creator ->
                 creator.metadata(Comment.TYPE, comments -> comments.add("Whether to notify players about the distance a message was sent from"))));
         builder.field(DISTANCE_PREFIX = TrackedValue.create(DEFAULT_DISTANCE_PREFIX, "distancePrefix", creator ->
-                creator.metadata(Comment.TYPE, comments -> comments.add("The prefix to use when notifying players about the distance a message was sent from"))));
+                creator.metadata(Comment.TYPE, comments -> comments.add("The name prefix to use when notifying players about the distance a message was sent from.\n" +
+                        "Since 1.20.2 the prefix is added to the username, ie. '<Player123> hello' becomes <{prefix}Player123> hello'"))));
         builder.field(OP_BYPASS = TrackedValue.create(OP_BYPASS_DEFAULT, "opBypass", creator ->
                 creator.metadata(Comment.TYPE, comments -> comments.add("Whether to allow operators to bypass the range limit"))));
         builder.field(OP_REQUIRED_PERMISSION_LEVEL = TrackedValue.create(DEFAULT_OP_PERMISSION_LEVEL, "opRequiredPermissionLevel", creator -> {

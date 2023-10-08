@@ -6,10 +6,11 @@
   "name": "Regional Chat",
   "description": "A mod that limits the range a player can talk and be heard via text chat",
   "authors": [
-    "ByMartrixx"
+    "IotaBread"
   ],
   "contact": {
-    "sources": "https://github.com/ByMartrixx/regional-chat"
+    "sources": "https://github.com/IotaBread/regional-chat",
+    "issues": "https://github.com/IotaBread/regional-chat/issues"
   },
 
   "license": "MIT",
@@ -26,7 +27,7 @@
   ],
 
   "depends": {
-    "minecraft": "~1.20.1",
+    "minecraft": "~1.20.2",
     "java": ">=17"
   }
 }
