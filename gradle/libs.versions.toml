@@ -10,5 +10,5 @@ quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loade
 
 [plugins]
 quilt_loom = { id = "org.quiltmc.loom", version = "1.4.+" }
-minotaur = { id = "com.modrinth.minotaur", version = "2.5.0" }
+minotaur = { id = "com.modrinth.minotaur", version = "2.8.4" }
 cursegradle = { id = "com.matthewprenger.cursegradle", version = "1.4.0" }
