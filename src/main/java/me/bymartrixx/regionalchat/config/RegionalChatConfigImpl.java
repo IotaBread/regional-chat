@@ -17,6 +17,7 @@ public class RegionalChatConfigImpl implements RegionalChatConfig {
     private static TrackedValue<Boolean> OP_BYPASS;
     private static TrackedValue<Integer> OP_REQUIRED_PERMISSION_LEVEL;
     private static TrackedValue<Boolean> OP_UNLIMITED_RANGE;
+    private static TrackedValue<Integer> SHOUT_REQUIRED_PERMISSION_LEVEL;
 
     protected static Config config;
 
@@ -40,6 +41,10 @@ public class RegionalChatConfigImpl implements RegionalChatConfig {
         }));
         builder.field(OP_UNLIMITED_RANGE = TrackedValue.create(OP_UNLIMITED_RANGE_DEFAULT, "opUnlimitedRange", creator ->
                 creator.metadata(Comment.TYPE, comments -> comments.add("Whether operators should have an unlimited hearing range"))));
+        builder.field(SHOUT_REQUIRED_PERMISSION_LEVEL = TrackedValue.create(DEFAULT_SHOUT_PERMISSION_LEVEL, "shoutRequiredPermissionLevel", creator -> {
+            creator.constraint(Constraint.range(0, 4));
+            creator.metadata(Comment.TYPE, comments -> comments.add("The permission level required to use the /shout command. Use 0 to allow everyone"));
+        }));
 
         return new RegionalChatConfigImpl();
     }
@@ -54,6 +59,7 @@ public class RegionalChatConfigImpl implements RegionalChatConfig {
             OP_BYPASS.setValue(legacyConfig.doOpBypass(), false);
             OP_REQUIRED_PERMISSION_LEVEL.setValue(legacyConfig.getOpRequiredPermissionLevel(), false);
             OP_UNLIMITED_RANGE.setValue(legacyConfig.hasOpUnlimitedRange(), false);
+            SHOUT_REQUIRED_PERMISSION_LEVEL.setValue(legacyConfig.getShoutRequiredPermissionLevel(), false);
 
             try {
                 Files.deleteIfExists(LegacyRegionalChatConfig.getFile());
@@ -91,5 +97,10 @@ public class RegionalChatConfigImpl implements RegionalChatConfig {
     @Override
     public boolean hasOpUnlimitedRange() {
         return OP_UNLIMITED_RANGE.getRealValue();
+    }
+
+    @Override
+    public int getShoutRequiredPermissionLevel() {
+        return SHOUT_REQUIRED_PERMISSION_LEVEL.getRealValue();
     }
 }

@@ -13,6 +13,7 @@ public interface RegionalChatConfig {
     boolean OP_BYPASS_DEFAULT = true;
     int DEFAULT_OP_PERMISSION_LEVEL = 3;
     boolean OP_UNLIMITED_RANGE_DEFAULT = false;
+    int DEFAULT_SHOUT_PERMISSION_LEVEL = 0;
 
     static RegionalChatConfig getConfig() {
         if (hasQuiltConfig()) {
@@ -60,4 +61,6 @@ public interface RegionalChatConfig {
     int getOpRequiredPermissionLevel();
 
     boolean hasOpUnlimitedRange();
+
+    int getShoutRequiredPermissionLevel();
 }

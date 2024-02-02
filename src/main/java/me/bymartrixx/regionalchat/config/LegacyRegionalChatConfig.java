@@ -25,6 +25,7 @@ public class LegacyRegionalChatConfig implements RegionalChatConfig {
     private final boolean opBypass;
     private final int opRequiredPermissionLevel;
     private final boolean opUnlimitedRange;
+    private final int shoutPermissionLevel;
 
     public LegacyRegionalChatConfig() {
         this.range = DEFAULT_RANGE;
@@ -33,6 +34,7 @@ public class LegacyRegionalChatConfig implements RegionalChatConfig {
         this.opBypass = OP_BYPASS_DEFAULT;
         this.opRequiredPermissionLevel = DEFAULT_OP_PERMISSION_LEVEL;
         this.opUnlimitedRange = OP_UNLIMITED_RANGE_DEFAULT;
+        this.shoutPermissionLevel = DEFAULT_SHOUT_PERMISSION_LEVEL;
     }
 
     protected static Path getFile() {
@@ -94,5 +96,10 @@ public class LegacyRegionalChatConfig implements RegionalChatConfig {
     @Override
     public boolean hasOpUnlimitedRange() {
         return this.opUnlimitedRange;
+    }
+
+    @Override
+    public int getShoutRequiredPermissionLevel() {
+        return this.shoutPermissionLevel;
     }
 }
