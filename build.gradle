@@ -1,7 +1,8 @@
 plugins {
-	id 'org.quiltmc.loom' version '1.0.+'
+	alias libs.plugins.quilt.loom
+	alias libs.plugins.minotaur
+	alias libs.plugins.cursegradle
 	id 'maven-publish'
-	id 'io.github.juuxel.loom-quiltflower' version '1.7.4'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -24,14 +25,10 @@ repositories {
 
 dependencies {
 	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	// mappings "org.quiltmc:quilt-mappings:${minecraft_version}+build.${project.quilt_mappings_build}:intermediary-v2"
+	minecraft libs.minecraft
+	// mappings variantOf(libs.quilt.mappings) { classifier("intermediary-v2") }
 	mappings loom.officialMojangMappings()
-	modImplementation "org.quiltmc:quilt-loader:${project.loader_version}"
-	compileClasspath "org.quiltmc:quilt-config:${project.quilt_config_version}"
-
-	// Fabric API.
-	// modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation libs.quilt.loader
 }
 
 processResources {
@@ -60,10 +57,42 @@ jar {
 	}
 }
 
-quiltflower {
-	addToRuntimeClasspath.set(true)
-	quiltflowerVersion.set('1.9.0')
+
+modrinth {
+	token = project.hasProperty('modrinth_token') ? project.property('modrinth_token') : System.getenv('MODRINTH_TOKEN')
+	projectId = 'B6Z2SJET'
+	versionNumber = project.version
+	versionName = "Regional Chat ${project.version} for Minecraft 1.19.2"
+	uploadFile = remapJar
+	changelog = "A changelog can be found at https://github.com/ByMartrixx/regional-chat/releases/tag/${version}"
+	gameVersions = ['1.19.2']
+	loaders = ['fabric', 'quilt']
 }
+
+curseforge {
+	if (project.hasProperty('curse_api_key') || System.getenv('CURSE_API_KEY') != null) {
+		apiKey = project.hasProperty('curse_api_key') ? project.property('curse_api_key') : System.getenv('CURSE_API_KEY')
+	}
+	project {
+		id = '558251'
+		changelog = "A changelog can be found at https://github.com/ByMartrixx/regional-chat/releases/tag/${version}"
+		releaseType = 'release'
+		addGameVersion '1.19.2'
+		addGameVersion 'Fabric'
+		addGameVersion 'Quilt'
+		mainArtifact(remapJar) {
+			displayName = "Regional Chat ${version} for Minecraft 1.19.2"
+		}
+		afterEvaluate {
+			uploadTask.dependsOn('remapJar')
+		}
+	}
+	options {
+		forgeGradleIntegration = false
+	}
+}
+
+publish.finalizedBy tasks.curseforge, tasks.modrinth
 
 // configure the maven publication
 publishing {
@@ -75,12 +104,6 @@ publishing {
 
 	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
 	repositories {
-		maven {
-			url 's3://maven.bymartrixx.me'
-			credentials(AwsCredentials) {
-				accessKey = System.env.AWS_ACCESS_KEY ?: findProperty('mavenAccessKey')
-				secretKey = System.env.AWS_SECRET_KEY ?: findProperty('mavenSecretKey')
-			}
-		}
+		mavenLocal()
 	}
 }

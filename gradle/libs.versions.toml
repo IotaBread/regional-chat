@@ -1,0 +1,14 @@
+[versions]
+minecraft = "1.19.2"
+quilt_mappings = "1.19.2+build.21"
+quilt_loader = "0.17.8"
+
+[libraries]
+minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
+quilt_mappings = { module = "org.quiltmc:quilt-mappings", version.ref = "quilt_mappings" }
+quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loader" }
+
+[plugins]
+quilt_loom = { id = "org.quiltmc.loom", version = "1.4.+" }
+minotaur = { id = "com.modrinth.minotaur", version = "2.8.4" }
+cursegradle = { id = "com.matthewprenger.cursegradle", version = "1.4.0" }
